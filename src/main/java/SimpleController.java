@@ -1,11 +1,21 @@
 public class SimpleController {
-    private Command command;
+    private final CommandHistory commandHistory;
 
-    public void setCommand(Command command) {
-        this.command = command;
+    public SimpleController(CommandHistory commandHistory) {
+        this.commandHistory = commandHistory;
     }
 
-    public void executeCommand() {
-        command.execute();
+    public void addCommandToHistory(Command command) {
+        commandHistory.addCommand(command);
+    }
+
+    public void reverseAction() {
+        commandHistory.removeLastCommand();
+    }
+
+    public void executeCommands() {
+        for (Command command: commandHistory.getCommandList()) {
+            command.execute();
+        }
     }
 }
